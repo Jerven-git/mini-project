@@ -64,6 +64,23 @@ A simple Laravel CRUD application for managing clients using the repository patt
    - Home: http://127.0.0.1:8000
    - Client Management: http://127.0.0.1:8000/clients
 
+## Troubleshooting
+
+### MySQL Connection Refused
+
+If you encounter the following error:
+
+```
+SQLSTATE[HY000] [2002] Connection refused (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: mini_project)
+```
+
+Make sure MySQL is running:
+
+```bash
+sudo service mysql status
+sudo service mysql start
+```
+
 ## Assumptions
 
 - MySQL is used as the database
