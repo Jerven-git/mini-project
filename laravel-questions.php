@@ -32,7 +32,7 @@
 // Route::get('/dashboard', [DashboardController::class, 'index'])
 //     ->middleware('auth');
 
-// Bonus: I used the 'auth' middleware because it checks if the user is authenticated
+// I used the 'auth' middleware because it checks if the user is authenticated
 // before allowing access to the route. If the user is not logged in, they will be
 // redirected to the login page. This ensures that only authenticated users can
 // access the /dashboard route.
