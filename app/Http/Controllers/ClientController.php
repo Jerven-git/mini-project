@@ -35,21 +35,18 @@ class ClientController extends Controller
         return redirect()->route('clients.index')->with('success', 'Client added successfully.');
     }
     
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:clients,email,' . $request->id, //preventing to fail unique validation when updating the same record
+            'email' => 'required|email|unique:clients,email,' . $id, //preventing to fail unique validation when updating the same record
             'status' => 'required|in:active,inactive'
         ]);
 
-        $client = Client::findOrFail($request->id);
-        $client = $this->clientRepository->update($client, $validatedData);
+        $client = Client::findOrFail($id);
+        $this->clientRepository->update($client, $validatedData);
 
-        return response()->json([
-            'status' => 'success',
-            'client' => $client
-        ]);
+        return redirect()->route('clients.index')->with('success', 'Client updated successfully.');
     }
 
     public function destroy($id)

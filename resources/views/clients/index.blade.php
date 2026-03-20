@@ -64,7 +64,7 @@
                 </thead>
                 <tbody>
                     @forelse($clients as $client)
-                        <tr class="border-b hover:bg-gray-50">
+                        <tr class="border-b hover:bg-gray-50" id="row-{{ $client->id }}">
                             <td class="py-3 px-4">{{ $client->name }}</td>
                             <td class="py-3 px-4">{{ $client->email }}</td>
                             <td class="py-3 px-4">
@@ -72,11 +72,28 @@
                                     {{ ucfirst($client->status) }}
                                 </span>
                             </td>
-                            <td class="py-3 px-4">
+                            <td class="py-3 px-4 flex gap-2">
+                                <button onclick="document.getElementById('edit-{{ $client->id }}').classList.toggle('hidden')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Edit</button>
                                 <form action="{{ route('clients.destroy', $client->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr id="edit-{{ $client->id }}" class="hidden border-b bg-gray-50">
+                            <td colspan="4" class="py-3 px-4">
+                                <form action="{{ route('clients.update', $client->id) }}" method="POST" class="flex flex-wrap gap-3 items-end">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="text" name="name" value="{{ $client->name }}" required class="border rounded px-3 py-2 flex-1">
+                                    <input type="email" name="email" value="{{ $client->email }}" required class="border rounded px-3 py-2 flex-1">
+                                    <select name="status" required class="border rounded px-3 py-2">
+                                        <option value="active" {{ $client->status == 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ $client->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                                    <button type="button" onclick="document.getElementById('edit-{{ $client->id }}').classList.add('hidden')" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Cancel</button>
                                 </form>
                             </td>
                         </tr>
