@@ -64,6 +64,14 @@ A simple Laravel CRUD application for managing clients using the repository patt
    - Home: http://127.0.0.1:8000
    - Client Management: http://127.0.0.1:8000/clients
 
+## Assumptions
+
+- MySQL is used as the database
+- No authentication is required for accessing the client management pages
+- Client status only accepts two values: `active` or `inactive`
+- Email must be unique per client
+- The application uses web routes (Option B: Blade views) for the UI
+
 ## Features
 
 - List all clients
